@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Lufttemperatur i Västerås senaste 4 månaderna</h1>
+    </header>
+    <main>
+      <div class="info-box"></div>
+      <p>
+        <span>Från</span><input type="text" /> <span>Till</span
+        ><input type="text" />
+      </p>
+      <table class="station-table" id="t1">
+        <thead>
+          <tr>
+            <th data-value-field="value" class="temp">Temperatur (°C)</th>
+            <th data-value-field="date" class="date">Datum</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+  </body>
+</html>

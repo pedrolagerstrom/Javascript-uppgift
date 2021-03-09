@@ -1,0 +1,27 @@
+h1,
+p {
+  font-family: "Montserrat", sans-serif;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-family: "Montserrat", sans-serif;
+}
+
+#t1 th {
+  color: black;
+  background-color: aqua;
+}
+
+th:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.station-table {
+  width: 1000px;
+  text-align: center;
+}
