@@ -25,3 +25,17 @@ th:hover {
   width: 50%;
   text-align: center;
 }
+
+.filter-btn {
+  cursor: pointer;
+  background-color: aqua;
+  border: 0px;
+  border-radius: 20px;
+  font-family: "Montserrat", sans-serif;
+  width: 110px;
+  height: 25px;
+}
+
+.filter-btn:hover {
+  color: grey;
+}
