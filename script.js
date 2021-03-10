@@ -1,15 +1,20 @@
 const url = "https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/96350/period/latest-months/data.json";
-// const url = "https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/98210/period/latest-months/data.json";
+// const url = "https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1/station/98210/period/latest-months/data.json";
 var stationData = {};
 var dates = [];
+var filterdData = [];
 const stationTable = document.querySelector(".station-table tbody");
 const tableTemp = document.querySelector(".temp");
 const tableDate = document.querySelector(".date");
 const infobox = document.querySelector(".info-box");
+const filterBtn = document.querySelector(".filter-btn");
+const fromDate = document.querySelector(".fromDate");
+const toDate = document.querySelector(".toDate");
 
 
 tableDate.addEventListener("click", sortDate);
 tableTemp.addEventListener("click", sortTemp);
+filterBtn.addEventListener("click", filterByDate);
 
 getData();
 async function getData() {
@@ -22,6 +27,7 @@ async function getData() {
 	
 	stationData = jsonData;
 	dates = jsonData.value;
+	filterdData = jsonData.value;
 	renderDatesTable();
 	renderInfobox();
 }
@@ -36,7 +42,7 @@ function renderInfobox() {
 
 
 function renderDatesTable() {
-	var html = dates.map((value) =>
+	var html = filterdData.map((value) =>
 	 `<tr>
 		<td>${value.value}</td>
 		<td>${new Date(value.date).toLocaleString()}</td>
@@ -46,9 +52,9 @@ function renderDatesTable() {
 }
 
 function sortDate() {
-	this.dataset.sortAsc ? dates.sort((a, b) => 
+	this.dataset.sortAsc ? filterdData.sort((a, b) => 
 		a[this.dataset.valueField] < b[this.dataset.valueField] ? 1 : -1)
-		: dates.sort((a, b) =>
+		: filterdData.sort((a, b) =>
 		a[this.dataset.valueField] > b[this.dataset.valueField] ? 1 : -1);
 	
 	this.dataset.sortAsc = this.dataset.sortAsc ? "" : "true";
@@ -58,9 +64,9 @@ renderDatesTable();
 
 
 function sortTemp() {
-	this.dataset.sortAsc ? dates.sort((a, b) => 
+	this.dataset.sortAsc ? filterdData.sort((a, b) => 
 		parseFloat(a[this.dataset.valueField]) < parseFloat(b[this.dataset.valueField]) ? 1 : -1)
-		: dates.sort((a, b) =>
+		: filterdData.sort((a, b) =>
 		parseFloat(a[this.dataset.valueField]) > parseFloat(b[this.dataset.valueField]) ? 1 : -1);
 		
 	this.dataset.sortAsc = this.dataset.sortAsc ? "" : "true";
@@ -87,4 +93,14 @@ function getWarmestTemperature() {
 			return max;
 		}
 	});
+}
+
+function filterByDate() {
+	const filterdDates = dates.filter((currentValue) =>
+	currentValue.date > new Date(fromDate.value).getTime() &&
+	currentValue.date <= new Date(toDate.value).setHours(23));
+		
+console.log(filterdDates);
+filterdData = filterdDates;
+renderDatesTable();
 }

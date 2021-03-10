@@ -11,7 +11,7 @@ td {
   font-family: "Montserrat", sans-serif;
 }
 
-#t1 th {
+.station-table th {
   color: black;
   background-color: aqua;
 }
@@ -22,6 +22,6 @@ th:hover {
 }
 
 .station-table {
-  width: 1000px;
+  width: 50%;
   text-align: center;
 }

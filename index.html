@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>SMHI</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -20,10 +20,11 @@
     <main>
       <div class="info-box"></div>
       <p>
-        <span>Från</span><input type="text" /> <span>Till</span
-        ><input type="text" />
+        <span>Från: </span><input type="date" class="fromDate" />
+        <span>Till: </span><input type="date" class="toDate" />
+        <button class="filter-btn">Välj Datum</button>
       </p>
-      <table class="station-table" id="t1">
+      <table class="station-table">
         <thead>
           <tr>
             <th data-value-field="value" class="temp">Temperatur (°C)</th>
