@@ -1,4 +1,3 @@
-const url = "https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/96350/period/latest-months/data.json";
 var stationData = {};
 var dates = [];
 var filterdData = [];
@@ -9,19 +8,24 @@ const infobox = document.querySelector(".info-box");
 const filterBtn = document.querySelector(".filter-btn");
 const fromDate = document.querySelector(".fromDate");
 const toDate = document.querySelector(".toDate");
+const searchBtn = document.querySelector(".search-btn");
+const searchField = document.querySelector(".search");
 
 
 tableDate.addEventListener("click", sortDate);
 tableTemp.addEventListener("click", sortTemp);
 filterBtn.addEventListener("click", filterByDate);
+searchBtn.addEventListener("click", getData);
 
-getData();
-async function getData() {
+
+async function getData() {	
+	const url = `https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/${searchField.value}/period/latest-months/data.json`;
 	try{
 		var response = await fetch(url);
 		var jsonData = await response.json();
 	}catch (error) {
 		console.error(error);
+		alert("Stationen finns inte.");
 	}
 	
 	stationData = jsonData;
@@ -34,9 +38,10 @@ async function getData() {
 
 
 function renderInfobox() {
-	var html = `<p>Kallaste temperaturen: <strong>${getColdestTemperature().value} (°C) ${new Date(getColdestTemperature().date).toLocaleString()}</strong></p>
-	<p>Varmaste temperaturen: <strong>${getWarmestTemperature().value} (°C) ${new Date(getWarmestTemperature().date).toLocaleString()}</strong></p>
-	<p>Dagens temperatur: <strong>${toDay().value} (°C) ${new Date(toDay().date).toLocaleString()}</strong></p>`;
+	var html = `<h1>Lufttemperatur, ${stationData.station.name} senaste 4 månaderna</h1>
+	<p>Senaste temperaturen: <strong>${toDay().value} (°C) ${new Date(toDay().date).toLocaleString()}</strong></p>
+	<p>Kallaste temperaturen: <strong>${getColdestTemperature().value} (°C) ${new Date(getColdestTemperature().date).toLocaleString()}</strong></p>
+	<p>Varmaste temperaturen: <strong>${getWarmestTemperature().value} (°C) ${new Date(getWarmestTemperature().date).toLocaleString()}</strong></p>`;
 	
 	infobox.innerHTML = html;
 }
@@ -100,15 +105,14 @@ function filterByDate() {
 	const filterdDates = dates.filter((currentValue) =>
 	currentValue.date > new Date(fromDate.value).getTime() &&
 	currentValue.date <= new Date(toDate.value).setHours(23));
-	//console.log(fromDate.value)
-	//console.log(filterdDates);
+
 filterdData = filterdDates;
 renderDatesTable();
 updateChart(filterdData);
 }
 
 function toDay(){
-	return stationData.value[260];
+	 return filterdData[filterdData.length - 1];
 }
 
 

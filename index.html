@@ -22,10 +22,13 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>Lufttemperatur i Västerås senaste 4 månaderna</h1>
-    </header>
+    <header></header>
     <main>
+      <p>
+        <span>Sök på en station: </span>
+        <input type="text" class="search" placeholder="Stations kod" />
+        <button class="search-btn">Sök</button>
+      </p>
       <div class="info-box"></div>
       <p>
         <span>Från: </span><input type="date" class="fromDate" />
@@ -42,7 +45,9 @@
           </thead>
           <tbody></tbody>
         </table>
-        <canvas id="line-chart"></canvas>
+        <div class="chart">
+          <canvas id="line-chart"></canvas>
+        </div>
       </div>
     </main>
   </body>

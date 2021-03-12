@@ -22,11 +22,12 @@ th:hover {
 }
 
 .station-table {
-  width: 100%;
+  width: 30%;
   text-align: center;
 }
 
-.filter-btn {
+.filter-btn,
+.search-btn {
   cursor: pointer;
   background-color: aqua;
   border: 0px;
@@ -36,11 +37,16 @@ th:hover {
   height: 25px;
 }
 
-.filter-btn:hover {
+.filter-btn:hover,
+.search-btn:hover {
   color: grey;
 }
 
 .container {
   display: flex;
-  width: 50%;
+  width: 100%;
+}
+
+.chart {
+  width: 70%;
 }
