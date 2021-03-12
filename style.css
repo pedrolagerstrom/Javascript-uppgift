@@ -22,7 +22,7 @@ th:hover {
 }
 
 .station-table {
-  width: 50%;
+  width: 100%;
   text-align: center;
 }
 
@@ -38,4 +38,9 @@ th:hover {
 
 .filter-btn:hover {
   color: grey;
+}
+
+.container {
+  display: flex;
+  width: 50%;
 }

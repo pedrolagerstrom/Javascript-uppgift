@@ -6,12 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SMHI</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- chart.js javascript -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
+      integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="script.js" defer></script>
   </head>
   <body>
     <header>
@@ -24,15 +32,18 @@
         <span>Till: </span><input type="date" class="toDate" />
         <button class="filter-btn">Välj Datum</button>
       </p>
-      <table class="station-table">
-        <thead>
-          <tr>
-            <th data-value-field="value" class="temp">Temperatur (°C)</th>
-            <th data-value-field="date" class="date">Datum</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="container">
+        <table class="station-table">
+          <thead>
+            <tr>
+              <th data-value-field="value" class="temp">Temperatur (°C)</th>
+              <th data-value-field="date" class="date">Datum</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <canvas id="line-chart"></canvas>
+      </div>
     </main>
   </body>
 </html>

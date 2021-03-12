@@ -1,5 +1,4 @@
 const url = "https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/96350/period/latest-months/data.json";
-// const url = "https://opendata-download-metobs.smhi.se/api/version/latest/parameter/1/station/98210/period/latest-months/data.json";
 var stationData = {};
 var dates = [];
 var filterdData = [];
@@ -30,12 +29,14 @@ async function getData() {
 	filterdData = jsonData.value;
 	renderDatesTable();
 	renderInfobox();
+	updateChart(filterdData);
 }
 
 
 function renderInfobox() {
-	var html = `<p>Kallaste temperaturen: <strong>${getColdestTemperature().value} (°C)</strong></p>
-	<p>Varmaste temperaturen: <strong>${getWarmestTemperature().value} (°C)</strong></p>`;
+	var html = `<p>Kallaste temperaturen: <strong>${getColdestTemperature().value} (°C) ${new Date(getColdestTemperature().date).toLocaleString()}</strong></p>
+	<p>Varmaste temperaturen: <strong>${getWarmestTemperature().value} (°C) ${new Date(getWarmestTemperature().date).toLocaleString()}</strong></p>
+	<p>Dagens temperatur: <strong>${toDay().value} (°C) ${new Date(toDay().date).toLocaleString()}</strong></p>`;
 	
 	infobox.innerHTML = html;
 }
@@ -99,8 +100,43 @@ function filterByDate() {
 	const filterdDates = dates.filter((currentValue) =>
 	currentValue.date > new Date(fromDate.value).getTime() &&
 	currentValue.date <= new Date(toDate.value).setHours(23));
-		
-console.log(filterdDates);
+	//console.log(fromDate.value)
+	//console.log(filterdDates);
 filterdData = filterdDates;
 renderDatesTable();
+updateChart(filterdData);
+}
+
+function toDay(){
+	return stationData.value[260];
+}
+
+
+const ctx = document.getElementById("line-chart").getContext("2d");
+const chart = new Chart(ctx, {
+    type: "line",
+    options: {
+        scales: {
+            xAxes: [
+                {
+                    type: "time",
+                },
+            ],
+        },
+    },
+});
+
+function updateChart(filterdData) {
+    const newDataset = {
+        label: `${stationData.parameter.name} - ${stationData.station.name}`,
+        data: filterdData.map((dataPoint) => {
+            return { t: dataPoint.date, y: dataPoint.value };
+        }),
+        backgroundColor: "rgba(255, 99, 132, 0.1)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 2,
+    };
+
+    chart.data.datasets.push(newDataset);
+    chart.update();
 }
